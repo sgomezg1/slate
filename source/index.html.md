@@ -20,6 +20,15 @@ meta:
     content: Documentación Knowledge USB API
 ---
 
+# Documentación Front End
+
+Esta tabla muestra los parámetros que puede recibir el componente resultados búsqueda
+
+Parametro | Descripción | Requerido
+-------------- | -------------- | --------------
+titulo | Parametro para mostrar el titulo del componente | No
+tituloResultados | Parametro para modificar textos especificos como placeholders | No
+
 # Introducción
 
 ¡Saludos! En este documento vamos a mostrar una guia correspondiente a los servicios web que están desarrollados para la aplicación Knowledge USB. Dashboard que permitirá a la universidad tomar decisiones con respecto a la gestión de conocimiento de la institución. Está diseñado este proyecto a manera de prototipo, en donde esto se puede editar a futuro y además, de ser un entregable del proyecto, es una guia necesaria para las personas que editen el proyecto a futuro, o necesiten de los servicios web.
@@ -31,6 +40,52 @@ Se usará MySQL como sistema gestor de base de datos.
 Se mostrará en este documento los parametros a enviar a cada servicio, el cuerpo de las respuestas, los posibles errores generados por el API y su interpretación.
 
 Esta documentación se ha creado gracias a [Slate](https://github.com/slatedocs/slate).
+
+# Desplegar API Knowledge USB
+
+Este proyecto, usa una base de datos igual al un antecedente directo de nuestro proyecto. Este proyecto al ser desarrollado con Laravel, nos permite poder crear las tablas por medio de la interfaz de comandos [Artisan] (https://laravel.com/docs/9.x/artisan) y llenarlas por medio de otros elementos que vienen listos para ser usados en el framework, como los son Seeders y Factories. A continuación, se listarán los pasos que deben seguirse de la forma descrita en este documento par asegurar un correcto despliegue del API desarrollada para el proyecto.
+
+1. Tener un servidor que contenga Apache 2.0 como mínimo, PHP mínimo en su versión 7.4 y MySQL mínimo en versión 5.8; Adicionalmente instalar y configurar Composer en nuestro entorno de desarrollo (Sea Linux o Windos).
+
+2. Clonar este [repositorio] (https://github.com/sgomezg1/KnowledgeUSBBackend). Podemos clonar esto directamente en nuestro servidor web si tenemos acceso a una terminal por SSH u otro método, lo cual es muy recomendable para hacer la instalación más sencilla.
+
+3. En la raiz de nuestro proyecto, ejecutar el comando **composer install**. Si presenta fallas y en la raíz del proyecto existe un archivo llamado **composer-lock.json**, eliminarlo y ejecutar de nuevo el comando.
+
+4. Crear un archivo llamado .env; podemos copiar el archivo .env.example y pegar su contenido en el nuevo archivo. En donde allí reemplazaremos los datos de conexión a la base de datos del archivo de ejemplo por los que nosotros tengamos configurados en nuestra base de datos.
+
+5. Ejecutar los siguientes comandos: 
+
+* **php artisan config:cache**
+* **php artisan migrate**
+* **php artisan key:generate**
+* **php artisan passport:install**
+
+6. Los anteriores comandos, nos permitieron tener toda la base de datos lista para autenticarnos y hacer el llenado correspondiente con datos de prueba. Recuerde que los datos generados acá los provee la librería [Faker] (https://github.com/fzaninotto/Faker) y no tienen nombres reales ni nada que sirva como información oficial para la universidad. Aclarado esto, procedemos a correr los siguientes comandos: 
+
+* **php artisan db:seed --class=TipoUsuariosSeeder**
+* **php artisan db:seed --class=LineasDeInvestigacionSeeder**
+* **php artisan db:seed --class=GrupoInvestigacionSeeder**
+* **php artisan db:seed --class=AreaConocimientoSeeder**
+* **php artisan db:seed --class=EventoSeeder**
+* **php artisan db:seed --class=FacultadSeeder**
+* **php artisan db:seed --class=ProgramaSeeder**
+* **php artisan db:seed --class=MateriumSeeder**
+* **php artisan db:seed --class=ClaseSeeder**
+* **php artisan db:seed --class=TipoProyectoSeeder**
+* **php artisan db:seed --class=MacroProyectoSeeder**
+
+Posteriormente, debemos usar el siguiente comando para crear un semillero, necesario para la correcta creación de un proyecto, ya que la columna semillero en la tabla proyectos no es nullable.
+
+* **php artisan crear:semillero --cantidad=CANTIDAD_SEMILLEROS_A_CREAR --grupoInvestigacion=ID_GRUPO_INVESTIGACION_BD --lineaInvestigacion=ID_LINEA_INVESTIGACION_BD**
+
+Con estos comandos, tenemos lista nuestra base de datos para empezar a crear usuarios, proyectos y realizar otro tipo de operaciones necesarias para
+
+**NOTA: El despliegue de los archivos cambiará según en donde vayamos a desplegar nuestro proyecto. Si es en un entorno local, nos bastará con clonar el repositorio y seguir los pasos anteriormente mencionados
+, si es en un servidor web, se deben hacer los siguientes pasos.**
+
+1. Mover el contenido de la carpeta public a la raiz de nuestro servidor web. Es decir, si tengo un hosting con dominio http://ejemplo-knowledge-usb.com, debo tomar el contenido de la carpeta public y moverlo a la carpeta public_html de nuestro hosting.
+
+2. Los archivos restantes, debemos moverlos un nivel atras de la carpeta public, en donde crearemos una carpeta con el nombre knowledgeusbapi 
 
 # Autenticación
 
