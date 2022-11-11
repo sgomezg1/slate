@@ -56,27 +56,28 @@ Este proyecto, usa una base de datos igual al un antecedente directo de nuestro 
 5. Ejecutar los siguientes comandos: 
 
 * **php artisan config:cache**
-* **php artisan migrate**
+* **php artisan migrate:fresh**
 * **php artisan key:generate**
 * **php artisan passport:install**
 
 6. Los anteriores comandos, nos permitieron tener toda la base de datos lista para autenticarnos y hacer el llenado correspondiente con datos de prueba. Recuerde que los datos generados acá los provee la librería [Faker] (https://github.com/fzaninotto/Faker) y no tienen nombres reales ni nada que sirva como información oficial para la universidad. Aclarado esto, procedemos a correr los siguientes comandos: 
 
+* **php artisan db:seed --class=FacultadSeeder**
+* **php artisan db:seed --class=ProgramaSeeder**
+* **php artisan db:seed --class=MateriumSeeder**
 * **php artisan db:seed --class=TipoUsuariosSeeder**
+* **php artisan usuario:rol**
+* **php artisan db:seed --class=ClaseSeeder**
 * **php artisan db:seed --class=LineasDeInvestigacionSeeder**
 * **php artisan db:seed --class=GrupoInvestigacionSeeder**
 * **php artisan db:seed --class=AreaConocimientoSeeder**
 * **php artisan db:seed --class=EventoSeeder**
-* **php artisan db:seed --class=FacultadSeeder**
-* **php artisan db:seed --class=ProgramaSeeder**
-* **php artisan db:seed --class=MateriumSeeder**
-* **php artisan db:seed --class=ClaseSeeder**
 * **php artisan db:seed --class=TipoProyectoSeeder**
 * **php artisan db:seed --class=MacroProyectoSeeder**
 
 Posteriormente, debemos usar el siguiente comando para crear un semillero, necesario para la correcta creación de un proyecto, ya que la columna semillero en la tabla proyectos no es nullable.
 
-* **php artisan crear:semillero --cantidad=CANTIDAD_SEMILLEROS_A_CREAR --grupoInvestigacion=ID_GRUPO_INVESTIGACION_BD --lineaInvestigacion=ID_LINEA_INVESTIGACION_BD**
+* **php artisan crear:semillero --cantidad=CANTIDAD_SEMILLEROS_A_CREAR --grupoInvestigacion=ID_GRUPO_INVESTIGACION_BD --lineaInvestigacion=NOMBRE_LINEA_INVESTIGACION_A_ASINGAR**
 
 Con estos comandos, tenemos lista nuestra base de datos para empezar a crear usuarios, proyectos y realizar otro tipo de operaciones necesarias para
 
