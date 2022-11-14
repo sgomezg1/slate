@@ -20,15 +20,6 @@ meta:
     content: Documentación Knowledge USB API
 ---
 
-# Documentación Front End
-
-Esta tabla muestra los parámetros que puede recibir el componente resultados búsqueda
-
-Parametro | Descripción | Requerido
--------------- | -------------- | --------------
-titulo | Parametro para mostrar el titulo del componente | No
-tituloResultados | Parametro para modificar textos especificos como placeholders | No
-
 # Introducción
 
 ¡Saludos! En este documento vamos a mostrar una guia correspondiente a los servicios web que están desarrollados para la aplicación Knowledge USB. Dashboard que permitirá a la universidad tomar decisiones con respecto a la gestión de conocimiento de la institución. Está diseñado este proyecto a manera de prototipo, en donde esto se puede editar a futuro y además, de ser un entregable del proyecto, es una guia necesaria para las personas que editen el proyecto a futuro, o necesiten de los servicios web.
@@ -79,10 +70,29 @@ Posteriormente, debemos usar el siguiente comando para crear un semillero, neces
 
 * **php artisan crear:semillero --cantidad=CANTIDAD_SEMILLEROS_A_CREAR --grupoInvestigacion=ID_GRUPO_INVESTIGACION_BD --lineaInvestigacion=NOMBRE_LINEA_INVESTIGACION_A_ASINGAR**
 
-Con estos comandos, tenemos lista nuestra base de datos para empezar a crear usuarios, proyectos y realizar otro tipo de operaciones necesarias para
+Y para crear cuantos proyectos necesitemos, debemos ejecutar el siguiente comando:
 
-**NOTA: El despliegue de los archivos cambiará según en donde vayamos a desplegar nuestro proyecto. Si es en un entorno local, nos bastará con clonar el repositorio y seguir los pasos anteriormente mencionados
-, si es en un servidor web, se deben hacer los siguientes pasos.**
+* **php artisan crear:proyecto**
+
+Con estos comandos, tenemos lista nuestra base de datos para empezar a crear usuarios, proyectos y realizar otro tipo de operaciones necesarias para ejecutar el prototipo de nuestra aplicación. Cabe aclarar que si queremos crear más usuarios, podemos generarlos con el comando **php artisan usuario:rol**, específicado anteriormente.
+
+Para poder crear un proyecto, debemos enviar estos parámetros:
+
+Parámetro | Descripción 
+-------------- | -------------- 
+--semillero | ID de semillero a asignar, no obligatorio
+--tipoProyecto | Asignar o no un tipo de proyecto
+--areasConocimiento | Cantidad de areas de conocimiento a asignar
+--productos | Cantidad productos a asignar 
+--antecedentes | ID de proyecto a asignar como antecedente 
+--presupuestos | Cantidad de presupuestos a asignar 
+--participaciones | Cantidad de participaciones del proyecto en un evento 
+--clases | Cantidad de clases a asignar 
+--participantes | Cantidad de participantes a asignar 
+--convocatorias | Cantidad de convocatorias a asignar
+
+
+**NOTA: El despliegue de los archivos cambiará según en donde vayamos a desplegar nuestro proyecto. Si es en un entorno local, nos bastará con clonar el repositorio y seguir los pasos anteriormente mencionados, si es en un servidor web, se deben hacer los siguientes pasos.**
 
 1. Mover el contenido de la carpeta public a la raiz de nuestro servidor web. Es decir, si tengo un hosting con dominio http://ejemplo-knowledge-usb.com, debo tomar el contenido de la carpeta public y moverlo a la carpeta public_html de nuestro hosting.
 
