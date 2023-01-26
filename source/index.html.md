@@ -260,174 +260,1376 @@ Esta petición nos retorna el token de autenticación.
 | --------- | --------- | --------- | -------------------------------------------------------------------------------------------------- |
 | id        | No aplica | Si        | Correo institucional del usuario que obtendrá sus roles. Se espera una dirección de correo valida. |
 
-# Kittens
+# Buscador
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+## Proyectos
 
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
+curl "http://localhost:8000/api/proyectos/"
 ```
 
-```javascript
-const kittn = require("kittn");
-
-let api = kittn.authorize("meowmeowmeow");
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> Petición con resultados:
 
 ```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+{
+  "success": true,
+  "proyectos": [
+    {
+      "id": 3,
+      "titulo": "Miss",
+      "estado": "En Desarrollo",
+      "descripcion": "Architecto voluptate optio.",
+      "macro_proyecto": 7,
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "semillero": 3,
+      "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+      "visibilidad": 1,
+      "ciudad": "East Sadie",
+      "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+      "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+      "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+      "tipo_proyecto": "Inv. Independientes",
+      "tipo_conocimiento": "Tacito",
+      "participantes": [
+        {
+          "cedula": "247698",
+          "cod_universitario": 6756,
+          "correo_est": "glover.geovanni@yahoo.com",
+          "nombres": "Larry Christiansen III",
+          "apellidos": "Hahn",
+          "telefono": "1-520-664-5570",
+          "correo_personal": "rosalia.johnson@reichert.com",
+          "semillero_id": null,
+          "programa_id": 2
+        }
+      ],
+      "area_conocimientos": [
+        {
+          "id": 1,
+          "nombre": "Jovani Robel MD",
+          "gran_area": "Deleniti sint.",
+          "descripcion": "Et non veritatis.",
+          "pivot": {
+            "proyecto": 3,
+            "area_conocimiento": 1
+          }
+        }
+      ],
+      "clases": [
+        {
+          "numero": 10424,
+          "nombre": "Prof. Edna Gibson",
+          "semestre": "4",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "proyectos": []
+}
+```
+
+Este servicio retorna todos los proyectos alojados en el sistema de información.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/proyectos/`
+
+### Parametros
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+## Proyecto por ID
+
+```shell
+curl "http://localhost:8000/api/proyectos/{id}"
+```
+
+> Petición con resultados
+
+```json
+{
+  "success": true,
+  "proyectos": {
+    "id": 3,
+    "titulo": "Miss",
+    "estado": "En Desarrollo",
+    "descripcion": "Architecto voluptate optio.",
+    "macro_proyecto": {
+      "id": 7,
+      "nombre": "Dr. Cali Zboncak",
+      "descripcion": "Asperiores vero sint sit deleniti quis ex incidunt inventore et.",
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "estado": "eius"
+    },
+    "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+    "fecha_fin": "2023-01-17T00:00:00.000000Z",
+    "semillero": {
+      "id": 3,
+      "nombre": "Aletha Hintz PhD",
+      "descripcion": "Ab nihil enim.",
+      "fecha_fun": "2023-01-17T00:00:00.000000Z",
+      "grupo_investigacion": 5,
+      "lider_semillero": "670343019",
+      "linea_investigacion": "Andres Quigley"
+    },
+    "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+    "visibilidad": 1,
+    "ciudad": "East Sadie",
+    "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+    "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+    "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+    "tipo_proyecto": {
+      "nombre": "Inv. Independientes",
+      "descripcion": ""
+    },
+    "tipo_conocimiento": "Tacito",
+    "nombre_facultad": "Humanidades y Educación",
+    "nombre_programa": "Licenciatura en Educación Infantil",
+    "antecedentes": [],
+    "area_conocimientos": [
+      {
+        "id": 1,
+        "nombre": "Jovani Robel MD",
+        "gran_area": "Deleniti sint.",
+        "descripcion": "Et non veritatis.",
+        "pivot": {
+          "proyecto": 3,
+          "area_conocimiento": 1
+        }
+      }
+    ],
+    "participantes": [
+      {
+        "cedula": "247698",
+        "cod_universitario": 6756,
+        "correo_est": "glover.geovanni@yahoo.com",
+        "nombres": "Larry Christiansen III",
+        "apellidos": "Hahn",
+        "telefono": "1-520-664-5570",
+        "correo_personal": "rosalia.johnson@reichert.com",
+        "semillero_id": null,
+        "programa_id": 2
+      }
+    ],
+    "productos": [
+      {
+        "id": 5,
+        "titulo_producto": "Ms.",
+        "tipo_producto": "non",
+        "url_repo": "https://source.unsplash.com/random/800x600",
+        "fecha": "2023-01-17T00:00:00.000000Z",
+        "proyecto": 3
+      }
+    ],
+    "presupuestos": [
+      {
+        "id": 1,
+        "monto": 1810533,
+        "fecha": "2023-01-17T00:00:00.000000Z",
+        "proyecto": 3,
+        "descripcion": "Quia architecto exercitationem omnis non. Cum exercitationem deserunt corporis quae quibusdam est voluptas. Aliquam ea dolor molestiae ut quam expedita nihil. Autem qui molestiae et tempora optio et aut perferendis."
+      }
+    ]
   }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-| Parameter    | Default | Description                                                                      |
-| ------------ | ------- | -------------------------------------------------------------------------------- |
-| include_cats | false   | If set to true, the result will also include cats.                               |
-| available    | true    | If set to false, the result will include kittens that have already been adopted. |
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require("kittn");
-
-let api = kittn.authorize("meowmeowmeow");
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-| Parameter | Description                      |
-| --------- | -------------------------------- |
-| ID        | The ID of the kitten to retrieve |
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require("kittn");
-
-let api = kittn.authorize("meowmeowmeow");
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+> Petición sin resultados
 
 ```json
 {
-  "id": 2,
-  "deleted": ":("
+  "success": false,
+  "mensaje": "No hay un proyecto con este ID"
 }
 ```
 
-This endpoint deletes a specific kitten.
+Esta petición regresa los datos de un proyecto por su ID.
 
-### HTTP Request
+### Petición HTTP
 
-`DELETE http://example.com/kittens/<ID>`
+`GET  http://localhost:8000/api/proyectos/{id}`
 
-### URL Parameters
+### Parametros URL
 
-| Parameter | Description                    |
-| --------- | ------------------------------ |
-| ID        | The ID of the kitten to delete |
+| Parametro | Requerido | Descripción                |
+| --------- | --------- | -------------------------- |
+| ID        | No        | ID de proyecto a consultar |
+
+## Obtener investigadores
+
+```shell
+curl "http://localhost:8000/api/investigadores"
+```
+
+> Petición con resultados
+
+```json
+{
+  "success": true,
+  "usuarios": [
+    {
+      "cedula": "247698",
+      "nombres": "Larry Christiansen III",
+      "apellidos": "Hahn",
+      "participaciones": [
+        {
+          "id": 3,
+          "titulo": "Miss",
+          "estado": "En Desarrollo",
+          "descripcion": "Architecto voluptate optio.",
+          "macro_proyecto": 7,
+          "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+          "fecha_fin": "2023-01-17T00:00:00.000000Z",
+          "semillero": 3,
+          "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+          "visibilidad": 1,
+          "ciudad": "East Sadie",
+          "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+          "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+          "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+          "tipo_proyecto": "Inv. Independientes",
+          "tipo_conocimiento": "Tacito",
+          "pivot": {
+            "usuario": "247698",
+            "proyecto": 3
+          },
+          "clases": [
+            {
+              "numero": 10424,
+              "nombre": "Prof. Edna Gibson",
+              "semestre": "4",
+              "materia": "Hortense",
+              "profesor": "670343019",
+              "materium": {
+                "catalogo": "Hortense",
+                "nombre": "Eugene Spinka MD",
+                "programa": 2,
+                "programas": {
+                  "id": 2,
+                  "nombre": "Licenciatura en Educación Infantil",
+                  "facultad_id": 2,
+                  "director": null,
+                  "facultad": {
+                    "id": 2,
+                    "nombre": "Humanidades y Educación",
+                    "decano": null,
+                    "coor_inv": null
+                  }
+                }
+              }
+            }, ...
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "usuarios": []
+}
+```
+
+Esta petición nos traerá los investigadores almacenados en el sistema.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/investigadores`
+
+### Parametros URL
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+## Investigadores por número de documento
+
+```shell
+curl "http://localhost:8000/api/investigadores/{numDocumento}"
+```
+
+> Petición con resultados:
+
+```json
+{
+    "success": true,
+    "usuario": [
+        {
+            "cedula": "670343019",
+            "cod_universitario": 78459,
+            "correo_est": "eloise14@gmail.com",
+            "nombres": "Michele Hayes PhD",
+            "apellidos": "Strosin",
+            "telefono": "+1.516.957.4995",
+            "correo_personal": "blanda.isidro@yundt.com",
+            "semillero_id": null,
+            "programa_id": 6,
+            "participaciones": [
+                {
+                    "id": 6,
+                    "titulo": "Prof.",
+                    "estado": "Finalizado",
+                    "descripcion": "Modi est assumenda.",
+                    "macro_proyecto": 10,
+                    "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+                    "fecha_fin": "2023-01-17T00:00:00.000000Z",
+                    "semillero": 5,
+                    "retroalimentacion_final": "Labore est consequatur quia distinctio cupiditate impedit ducimus.",
+                    "visibilidad": 1,
+                    "ciudad": "Trantowville",
+                    "metodologia": "Debitis temporibus consequuntur commodi magni dolores sapiente ut.",
+                    "conclusiones": "Dolores deserunt molestiae nihil in quia illum et harum aut vero soluta voluptatem.",
+                    "justificacion": "Ut qui cum quo eligendi minus recusandae sunt.",
+                    "tipo_proyecto": "Proyecto de Aula",
+                    "tipo_conocimiento": "Implicito",
+                    "pivot": {
+                        "usuario": "670343019",
+                        "proyecto": 6
+                    },
+                    "clases": [
+                        {
+                            "numero": 39470,
+                            "nombre": "Ayana Batz V",
+                            "semestre": "3",
+                            "materia": "Bell",
+                            "profesor": "670343019",
+                            "materium": {
+                                "catalogo": "Bell",
+                                "nombre": "Grayce Fadel",
+                                "programa": 8,
+                                "programas": {
+                                    "id": 8,
+                                    "nombre": "Ingeniería Mecatrónica",
+                                    "facultad_id": 3,
+                                    "director": null,
+                                    "facultad": {
+                                        "id": 3,
+                                        "nombre": "Ingeniería",
+                                        "decano": null,
+                                        "coor_inv": null
+                                    }
+                                }
+                            }
+                        }, ...
+                    ]
+                }, ...
+            ]
+        }
+    ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "usuario": []
+}
+```
+
+Este servicio trae valores numéricos correspondientes al presupuesto asignado a los proyectos por mes.
+
+### Petición HTTP
+
+`GET http://localhost:8000/api/investigadores/{numDocumento}`
+
+### Parametros URL
+
+| Parametro    | Requerido | Descripción                                      |
+| ------------ | --------- | ------------------------------------------------ |
+| numDocumento | No        | Número de documento del investigador a consultar |
+
+# Reportes
+
+## Reporte proyectos con presupuesto
+
+```shell
+curl "http://localhost:8000/api/reportes/presupuestos" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "RUTA_DE_REPORTE_GENERADO",
+  "data": [
+    {
+      "id": 3,
+      "titulo": "Miss",
+      "estado": "En Desarrollo",
+      "descripcion": "Architecto voluptate optio.",
+      "macro_proyecto": 7,
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "semillero": 3,
+      "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+      "visibilidad": 1,
+      "ciudad": "East Sadie",
+      "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+      "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+      "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+      "tipo_proyecto": "Inv. Independientes",
+      "tipo_conocimiento": "Tacito",
+      "clases": [
+        {
+          "numero": 10424,
+          "nombre": "Prof. Edna Gibson",
+          "semestre": "4",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        } ...
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "REPORTE_VACIO",
+  "data": []
+}
+```
+
+Este servicio genera un reporte de los proyectos que tienen presupuesto asignado junto con datos adicionales.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/reportes/presupuestos`
+
+### Parametros
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+## Reporte proyectos por convocatoria
+
+```shell
+curl "http://localhost:8000/api/reportes/convocatorias" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "RUTA_DE_REPORTE_GENERADO",
+  "data": [
+    {
+      "id": 3,
+      "titulo": "Miss",
+      "estado": "En Desarrollo",
+      "descripcion": "Architecto voluptate optio.",
+      "macro_proyecto": 7,
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "semillero": 3,
+      "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+      "visibilidad": 1,
+      "ciudad": "East Sadie",
+      "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+      "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+      "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+      "tipo_proyecto": "Inv. Independientes",
+      "tipo_conocimiento": "Tacito",
+      "clases": [
+        {
+          "numero": 10424,
+          "nombre": "Prof. Edna Gibson",
+          "semestre": "4",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        } ...
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "REPORTE_VACIO",
+  "data": []
+}
+```
+
+Este servicio genera un reporte de los proyectos que vienen por convocatoria.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/reportes/convocatorias`
+
+### Parametros
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+## Reporte proyectos que requieren integrantes
+
+```shell
+curl "http://localhost:8000/api/reportes/integrantes" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "RUTA_DE_REPORTE_GENERADO",
+  "data": [
+    {
+      "id": 3,
+      "titulo": "Miss",
+      "estado": "En Desarrollo",
+      "descripcion": "Architecto voluptate optio.",
+      "macro_proyecto": 7,
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "semillero": 3,
+      "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+      "visibilidad": 1,
+      "ciudad": "East Sadie",
+      "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+      "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+      "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+      "tipo_proyecto": "Inv. Independientes",
+      "tipo_conocimiento": "Tacito",
+      "clases": [
+        {
+          "numero": 10424,
+          "nombre": "Prof. Edna Gibson",
+          "semestre": "4",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        } ...
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "REPORTE_VACIO",
+  "data": []
+}
+```
+
+Este servicio genera un reporte de los proyectos que no tienen integrantes y necesitan que se asignen uno o más.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/reportes/integrantes`
+
+### Parametros
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+## Reporte proyectos de semillero
+
+```shell
+curl "http://localhost:8000/api/reportes/semillero" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "RUTA_DE_REPORTE_GENERADO",
+  "data": [
+    {
+      "id": 3,
+      "titulo": "Miss",
+      "estado": "En Desarrollo",
+      "descripcion": "Architecto voluptate optio.",
+      "macro_proyecto": 7,
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "semillero": 3,
+      "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+      "visibilidad": 1,
+      "ciudad": "East Sadie",
+      "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+      "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+      "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+      "tipo_proyecto": "Inv. Independientes",
+      "tipo_conocimiento": "Tacito",
+      "clases": [
+        {
+          "numero": 10424,
+          "nombre": "Prof. Edna Gibson",
+          "semestre": "4",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        } ...
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "REPORTE_VACIO",
+  "data": []
+}
+```
+
+Este servicio genera un reporte de los proyectos que son de semillero.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/reportes/semillero`
+
+### Parametros
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+## Reporte proyectos de investigadores independientes
+
+```shell
+curl "http://localhost:8000/api/reportes/investigadores-independientes" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "RUTA_DE_REPORTE_GENERADO",
+  "data": [
+    {
+      "id": 3,
+      "titulo": "Miss",
+      "estado": "En Desarrollo",
+      "descripcion": "Architecto voluptate optio.",
+      "macro_proyecto": 7,
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "semillero": 3,
+      "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+      "visibilidad": 1,
+      "ciudad": "East Sadie",
+      "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+      "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+      "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+      "tipo_proyecto": "Inv. Independientes",
+      "tipo_conocimiento": "Tacito",
+      "clases": [
+        {
+          "numero": 10424,
+          "nombre": "Prof. Edna Gibson",
+          "semestre": "4",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        } ...
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "REPORTE_VACIO",
+  "data": []
+}
+```
+
+Este servicio genera un reporte de los proyectos que son de investigadores independientes.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/reportes/investigadores-independientes`
+
+### Parametros
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+## Reporte proyectos que son trabajo de grado
+
+```shell
+curl "http://localhost:8000/api/reportes/trabajo-de-grado" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "RUTA_DE_REPORTE_GENERADO",
+  "data": [
+    {
+      "id": 3,
+      "titulo": "Miss",
+      "estado": "En Desarrollo",
+      "descripcion": "Architecto voluptate optio.",
+      "macro_proyecto": 7,
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "semillero": 3,
+      "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+      "visibilidad": 1,
+      "ciudad": "East Sadie",
+      "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+      "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+      "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+      "tipo_proyecto": "Inv. Independientes",
+      "tipo_conocimiento": "Tacito",
+      "clases": [
+        {
+          "numero": 10424,
+          "nombre": "Prof. Edna Gibson",
+          "semestre": "4",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        } ...
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "REPORTE_VACIO",
+  "data": []
+}
+```
+
+Este servicio genera un reporte de los proyectos que son trabajos de grado.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/reportes/trabajo-de-grado`
+
+### Parametros
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+## Reporte proyectos por facultad
+
+```shell
+curl "http://localhost:8000/api/reportes/facultad/{idFacultad}" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "RUTA_DE_REPORTE_GENERADO",
+  "data": [
+    {
+      "id": 3,
+      "titulo": "Miss",
+      "estado": "En Desarrollo",
+      "descripcion": "Architecto voluptate optio.",
+      "macro_proyecto": 7,
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "semillero": 3,
+      "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+      "visibilidad": 1,
+      "ciudad": "East Sadie",
+      "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+      "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+      "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+      "tipo_proyecto": "Inv. Independientes",
+      "tipo_conocimiento": "Tacito",
+      "clases": [
+        {
+          "numero": 10424,
+          "nombre": "Prof. Edna Gibson",
+          "semestre": "4",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        },
+        {
+          "numero": 51903,
+          "nombre": "Yasmine Jacobi",
+          "semestre": "7",
+          "materia": "Sarina",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Sarina",
+            "nombre": "Prof. Kirk Cole DVM",
+            "programa": 10,
+            "programas": {
+              "id": 10,
+              "nombre": "Ingeniería de Sistemas",
+              "facultad_id": 3,
+              "director": null,
+              "facultad": {
+                "id": 3,
+                "nombre": "Ingeniería",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        },
+        {
+          "numero": 77383,
+          "nombre": "Mack McCullough",
+          "semestre": "2",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "REPORTE_VACIO",
+  "data": []
+}
+```
+
+Este servicio genera un reporte de los proyectos que son de semillero.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/reportes/facultad/{idFacultad}`
+
+### Parametros
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| idFacultad       | Si        | ID de facultad a consultar.                                                           |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+## Reporte proyectos por programa
+
+```shell
+curl "http://localhost:8000/api/reportes/programa/{idPrograma}" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "RUTA_DE_REPORTE_GENERADO",
+  "data": [
+    {
+      "id": 3,
+      "titulo": "Miss",
+      "estado": "En Desarrollo",
+      "descripcion": "Architecto voluptate optio.",
+      "macro_proyecto": 7,
+      "fecha_inicio": "2023-01-17T00:00:00.000000Z",
+      "fecha_fin": "2023-01-17T00:00:00.000000Z",
+      "semillero": 3,
+      "retroalimentacion_final": "Quia provident quod delectus incidunt et quo vel iusto occaecati maiores in.",
+      "visibilidad": 1,
+      "ciudad": "East Sadie",
+      "metodologia": "Occaecati aut culpa inventore deleniti dolores aut iure.",
+      "conclusiones": "Tempore culpa sequi amet sed dolores ratione quidem suscipit molestiae error odit.",
+      "justificacion": "Quaerat corrupti debitis quae nihil eveniet saepe eum quibusdam possimus quas.",
+      "tipo_proyecto": "Inv. Independientes",
+      "tipo_conocimiento": "Tacito",
+      "clases": [
+        {
+          "numero": 10424,
+          "nombre": "Prof. Edna Gibson",
+          "semestre": "4",
+          "materia": "Hortense",
+          "profesor": "670343019",
+          "materium": {
+            "catalogo": "Hortense",
+            "nombre": "Eugene Spinka MD",
+            "programa": 2,
+            "programas": {
+              "id": 2,
+              "nombre": "Licenciatura en Educación Infantil",
+              "facultad_id": 2,
+              "director": null,
+              "facultad": {
+                "id": 2,
+                "nombre": "Humanidades y Educación",
+                "decano": null,
+                "coor_inv": null
+              }
+            }
+          }
+        }, ...
+      ]
+    }
+  ]
+}
+```
+
+> Petición sin resultados
+
+```json
+{
+  "success": true,
+  "mensaje": "Reporte generado con exito",
+  "ruta": "REPORTE_VACIO",
+  "data": []
+}
+```
+
+Este servicio genera un reporte de los proyectos por programa.
+
+### Petición HTTP
+
+`POST http://localhost:8000/api/reportes/programa/{idPrograma}`
+
+### Parametros
+
+| Parametro        | Requerido | Descripción                                                                           |
+| ---------------- | --------- | ------------------------------------------------------------------------------------- |
+| idPrograma       | Si        | ID del programa a consultar.                                                          |
+| estado           | No        | Arreglo de posibles estados (En propuesta, En Progreso, En Correcciones, Finalizado). |
+| facultad         | No        | Arreglo con uno o más ID de facultades.                                               |
+| programa         | No        | Arreglo con uno o más ID de programas.                                                |
+| areaConocimiento | No        | Arreglo con uno o más ID de areas de conocimiento.                                    |
+| nombre           | No        | Nombre del proyecto. Puede ser similar o exacto.                                      |
+
+# Dashboard
+
+## Valores para tarjetas
+
+```shell
+curl "http://localhost:8000/api/graficos/elementos-dashboard" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "creados": 17,
+  "finalizados": 6,
+  "aula": 4,
+  "grado": 3,
+  "semillero": 17,
+  "convocatorias": 0,
+  "inv_independientes": 0,
+  "presupuesto": 17,
+  "implicitos": 8,
+  "tacitos": 9,
+  "ranking": {
+    "ingenieria": 33,
+    "humanidades": 14,
+    "juridicas": 1,
+    "economicas": 0,
+    "psicologia": 0
+  }
+}
+```
+
+Este servicio trae todos los valores que vemos en las tarjetas del tablero de control de Knowledge USB.
+
+### Petición HTTP
+
+`GET http://localhost:8000/api/graficos/elementos-dashboard`
+
+## Datos graficos proyectos finalizados por facultad
+
+```shell
+curl "http://localhost:8000/api/graficos/datos-graficas-finalizados-facultad" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "datos": [
+    {
+      "facultad": "Psicología",
+      "finalizados": 0,
+      "no_finalizados": 0
+    },
+    {
+      "facultad": "Humanidades y Educación",
+      "finalizados": 4,
+      "no_finalizados": 10
+    },
+    {
+      "facultad": "Ingeniería",
+      "finalizados": 13,
+      "no_finalizados": 20
+    },
+    {
+      "facultad": "Ciencias Economicas",
+      "finalizados": 0,
+      "no_finalizados": 0
+    },
+    {
+      "facultad": "Ciencias Juridicas",
+      "finalizados": 1,
+      "no_finalizados": 3
+    }
+  ]
+}
+```
+
+Este servicio trae valores numéricos correspondientes a la cantidad de proyectos finalizados y no finalizados por facultad.
+
+### Petición HTTP
+
+`GET http://localhost:8000/api/graficos/datos-graficas-finalizados-facultad`
+
+## Datos graficos proyectos trabajo y semillero por facultad
+
+```shell
+curl "http://localhost:8000/api/graficos/datos-graficas-grado-semillero-facultad" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "datos": [
+    {
+      "facultad": "Psicología",
+      "proyectos_grado": 0,
+      "semilleros": 0
+    },
+    {
+      "facultad": "Humanidades y Educación",
+      "proyectos_grado": 4,
+      "semilleros": 2
+    },
+    {
+      "facultad": "Ingeniería",
+      "proyectos_grado": 5,
+      "semilleros": 14
+    },
+    {
+      "facultad": "Ciencias Economicas",
+      "proyectos_grado": 0,
+      "semilleros": 0
+    },
+    {
+      "facultad": "Ciencias Juridicas",
+      "proyectos_grado": 0,
+      "semilleros": 2
+    }
+  ]
+}
+```
+
+Este servicio trae valores numéricos correspondientes a la cantidad de proyectos de grado y semillero por facultad.
+
+### Petición HTTP
+
+`GET http://localhost:8000/api/graficos/datos-graficas-grado-semillero-facultad`
+
+## Datos graficos presupuesto por mes para proyectos
+
+```shell
+curl "http://localhost:8000/api/graficos/datos-graficas-presupuesto-proyectos-por-mes" \
+    -H Authorization: Bearer <TOKEN_JWT>
+```
+
+> Petición con resultados:
+
+```json
+{
+  "success": true,
+  "datos": [
+    {
+      "presupuesto": 13690289,
+      "fecha": "Septiembre 2022"
+    },
+    {
+      "presupuesto": 60171148,
+      "fecha": "Octubre 2022"
+    },
+    {
+      "presupuesto": 21203642,
+      "fecha": "Noviembre 2022"
+    },
+    {
+      "presupuesto": 53073563,
+      "fecha": "Diciembre 2022"
+    },
+    {
+      "presupuesto": 110911023,
+      "fecha": "Enero 2023"
+    }
+  ]
+}
+```
+
+Este servicio trae valores numéricos correspondientes al presupuesto asignado a los proyectos por mes.
+
+### Petición HTTP
+
+`GET http://localhost:8000/api/graficos/datos-graficas-presupuesto-proyectos-por-mes`
