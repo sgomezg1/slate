@@ -87,7 +87,6 @@ Para poder crear un proyecto, debemos enviar estos parámetros:
 | --tipoProyecto      | Asignar o no un tipo de proyecto                      |
 | --areasConocimiento | Cantidad de areas de conocimiento a asignar           |
 | --productos         | Cantidad productos a asignar                          |
-| --antecedentes      | ID de proyecto a asignar como antecedente             |
 | --presupuestos      | Cantidad de presupuestos a asignar                    |
 | --participaciones   | Cantidad de participaciones del proyecto en un evento |
 | --clases            | Cantidad de clases a asignar                          |
