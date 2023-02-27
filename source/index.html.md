@@ -68,6 +68,7 @@ Este proyecto, usa una base de datos igual al un antecedente directo de nuestro 
 - **php artisan db:seed --class=EventoSeeder**
 - **php artisan db:seed --class=TipoProyectoSeeder**
 - **php artisan db:seed --class=MacroProyectoSeeder**
+- **php artisan db:seed --class=ConvocatoriaSeeder**
 
 Posteriormente, debemos usar el siguiente comando para crear un semillero, necesario para la correcta creación de un proyecto, ya que la columna semillero en la tabla proyectos no es nullable.
 
